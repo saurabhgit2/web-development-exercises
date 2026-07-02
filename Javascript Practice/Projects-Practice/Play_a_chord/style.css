@@ -9,6 +9,9 @@
 }
 
 div{
-    margin: 10px;
+    margin: 20px;
     background-color: burlywood;
+    height: 40px;
+    width: 50px;
+
 }
