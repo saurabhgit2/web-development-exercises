@@ -27,3 +27,6 @@ playDchord.addEventListener('click',play_chord);
 
 strumDC.addEventListener('click',playboth);
 btnforEm.addEventListener('click',playEminor);
+
+
+
