@@ -10,11 +10,15 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-   <div id='firstReact'>
-    My First React
-    <Greeting/>
-    <Sanjeev/>
+    <>
+       <div id='firstReact'>
+        my div block
+          <h1>First react Project</h1>
+          <Greeting/>
+          <Sanjeev/>
    </div>
+    
+    </>
   )
 }
 

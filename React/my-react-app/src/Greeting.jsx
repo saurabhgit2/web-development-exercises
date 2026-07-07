@@ -2,9 +2,11 @@ import "./Greeting.css";
 
 function Greeting(){
     return(
-            <div>
+<>
+            <div id="greeting">
                 <h1>How you doing Sanjeev?</h1>
             </div>
+</>
     );
 };
 
