@@ -34,13 +34,26 @@
 // Using map, giving 30% to each
 
 const employees=[
-   {name:'Saurabh', salary:2500},
-   {name:'Dustin', salary:2000},
-   {name:'El', salary:3500}
+   {  
+      name:"Saurabh", 
+      salary:2500
+   },
+
+   {  name:"Dustin", 
+      salary:2000},
+
+   {   
+      name:"El", 
+      salary:3500
+   }
 ];
 
-const salary=employees.map(employee=>{
-  return employee.salary+(employee.salary*0.3);
-});
-console.log(salary);
+const updated=employees.map(employee=>({
+   ...employee,
+   salary:employee.salary+(employee.salary*0.3)
+}));
+console.log(updated);
+
+employees.forEach(employee=>console.log(`Appraisal email sent to ${employee.name}`));
+
 
