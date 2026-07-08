@@ -31,29 +31,39 @@
 
 // console.log(b);
 
-// Using map, giving 30% to each
+// Using map, giving 30% to each/ showed email sent message by forEach
 
-const employees=[
-   {  
-      name:"Saurabh", 
-      salary:2500
-   },
+// const employees=[
+//    {  
+//       name:"Saurabh", 
+//       salary:2500
+//    },
 
-   {  name:"Dustin", 
-      salary:2000},
+//    {  name:"Dustin", 
+//       salary:2000},
 
-   {   
-      name:"El", 
-      salary:3500
-   }
-];
+//    {   
+//       name:"El", 
+//       salary:3500
+//    }
+// ];
 
-const updated=employees.map(employee=>({
-   ...employee,
-   salary:employee.salary+(employee.salary*0.3)
-}));
-console.log(updated);
+// const updated=employees.map(employee=>({
+//    ...employee,
+//    salary:employee.salary+(employee.salary*0.3)
+// }));
+// console.log(updated);
 
-employees.forEach(employee=>console.log(`Appraisal email sent to ${employee.name}`));
+// employees.forEach(employee=>console.log(`Appraisal email sent to ${employee.name}`));
+
+// Use Reduce() to sum elements of an array
+
+const A=[10,20,30,40];
+
+const result=A.reduce(
+      (sum,currentValue)=>sum+currentValue 
+   ,0);
+
+   console.log(`The sum of all elements of this array is ${result}`);
 
 
