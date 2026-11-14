@@ -100,7 +100,7 @@ body{
     transition: width 0.1s linear;
     /* border: 2px solid black; */
     border-radius: 5px;
-    width: 75%;
+    width: 0%;
     height: 100%;
     ;
 }
