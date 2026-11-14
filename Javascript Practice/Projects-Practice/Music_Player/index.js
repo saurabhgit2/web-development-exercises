@@ -1,102 +1,93 @@
-// ===== Music Player – "Next Track" using the free Deezer API (no API key needed) =====
-// Deezer's API doesn't allow normal fetch() calls from a browser (CORS error),
-// so we use JSONP: we add a <script> tag and Deezer calls our function with the data.
-// Note: Deezer only gives free 30-second previews, not full songs.
 
-// Elements from index.html
 const img = document.querySelector("#img-container img");
 const title = document.getElementById("title");
 const artist = document.getElementById("artist");
-const audio = document.querySelector("#music-audio audio");
-const nextBtn = document.getElementById("next_track");
+const music = document.querySelector("#music-audio audio");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const playBtn = document.getElementById("playBtn");
+const searchInput=document.getElementById('searchInput');
+const submitBtn=document.getElementById('submitBtn');
 
-// Searches to pick songs from – change these to whatever you like
-const searchTerms = [
-  "Shankar Ehsaan Loy",
-  "Arijit Singh",
-  "A R Rahman",
-  "Pritam",
-  "Shreya Ghoshal",
-  "Vishal Shekhar",
-];
+let isPlaying=false;
+let songIndex=0;
 
-let playlist = [];   // tracks we've loaded but not played yet
-let callbackId = 0;  // makes each JSONP callback name unique
+let songs=[
+    {
+        name: 'Bhaag Milkha Bhaag',
+        artist:'Bhaag Milkha Bhaag',     
+    },
+    
+    {
+        name: 'Choo Lo',
+        artist:'Choo Lo',     
+    },
 
-// ---- JSONP helper: works like fetch(), but avoids the CORS error ----
-function jsonp(url) {
-  return new Promise((resolve, reject) => {
-    const callbackName = "deezerCallback" + callbackId++;
-    const script = document.createElement("script");
+     {
+        name: 'Rock On',
+        artist:'Rock On',     
+    },
 
-    // Deezer will run window[callbackName](data) when the script loads
-    window[callbackName] = (data) => {
-      resolve(data);
-      delete window[callbackName];
-      script.remove();
-    };
+      {
+        name: 'ZNMD',
+        artist:'ZNMD',     
+    },
 
-    script.onerror = () => {
-      reject(new Error("Could not reach Deezer"));
-      delete window[callbackName];
-      script.remove();
-    };
 
-    script.src = `${url}&output=jsonp&callback=${callbackName}`;
-    document.body.appendChild(script);
-  });
+]
+
+function playMusic(){
+    isPlaying=true;
+    music.play();
+    playBtn.classList.replace('fa-play', 'fa-pause');
+    playBtn.setAttribute('title','Pause');
+   
 }
 
-// ---- Load a batch of tracks from a random search term ----
-async function loadTracks() {
-  const term = searchTerms[Math.floor(Math.random() * searchTerms.length)];
-  const url = `https://api.deezer.com/search?q=${encodeURIComponent(term)}&limit=25`;
-  const result = await jsonp(url);
-
-  if (result.error) throw new Error(result.error.message);
-
-  // Keep only tracks that actually have a preview, then shuffle them
-  playlist = result.data
-    .filter((track) => track.preview)
-    .sort(() => Math.random() - 0.5);
+function pauseMusic(){
+    isPlaying=false;
+    music.pause();
+    playBtn.classList.replace('fa-pause', 'fa-play');
+    playBtn.setAttribute('title','Play');
 }
 
-// ---- Show a track in the player ----
-function showTrack(track) {
-  img.src = track.album.cover_big;            // 500x500 album art
-  img.alt = track.title;
-  title.textContent = track.title;
-  artist.textContent = track.artist.name;
-  audio.src = track.preview;                  // 30-second MP3
-  audio.play();
+// Load song
+function loadSong(song){
+     title.textContent=song.name;
+     artist.textContent=song.artist;
+     music.src=`Music/${song.name}.mp3`;
+     img.src=`Artist/${song.name}.jpg`;
 }
 
-// ---- Next Track button ----
-async function nextTrack() {
-  nextBtn.disabled = true;
-  nextBtn.textContent = "Loading...";
+loadSong(songs[songIndex]);
 
-  try {
-    if (playlist.length === 0) {
-      await loadTracks();
+function nextSong(){
+    songIndex++;
+    
+    if (songIndex<=3){
+         loadSong(songs[songIndex]);
     }
-    const track = playlist.pop();
-    if (track) {
-      showTrack(track);
-    } else {
-      title.textContent = "No tracks found, try again";
+    else if (songIndex>3){
+        songIndex=0;
+        loadSong(songs[songIndex]);
     }
-  } catch (err) {
-    console.error(err);
-    title.textContent = "Couldn't load a track";
-    artist.textContent = "Check your internet connection";
-  }
-
-  nextBtn.disabled = false;
-  nextBtn.textContent = "Next Track (Using API)";
+    playMusic();
 }
 
-nextBtn.addEventListener("click", nextTrack);
+function prevSong(){
+    songIndex--;
+    
+    if (songIndex>=0){
+         loadSong(songs[songIndex]);
+    }
+    else if (songIndex<0){
+        songIndex=3;
+        loadSong(songs[songIndex]);
+    }
+    playMusic();
+}
 
-// Optional: automatically play the next track when the current one ends
-audio.addEventListener("ended", nextTrack);
+playBtn.addEventListener('click',()=>(isPlaying ? pauseMusic():playMusic()));
+nextBtn.addEventListener('click',nextSong);
+prevBtn.addEventListener('click',prevSong);
+

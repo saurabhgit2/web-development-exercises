@@ -71,3 +71,59 @@ body{
    padding: 10px;
   
 }
+
+#searchBar{
+    position: absolute;
+    top:10px;
+    width: 100px;
+    height: 50px;
+}
+
+#progressContainer{
+     width: 80%;
+     height: 5px;
+     background-color: #fff;
+     border-radius: 5px;
+     cursor: pointer;
+}
+#durationWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+   
+
+}
+
+#progress{
+    background-color: #242323;
+    transition: width 0.1s linear;
+    /* border: 2px solid black; */
+    border-radius: 5px;
+    width: 75%;
+    height: 100%;
+    ;
+}
+
+#controls{
+    display: flex;
+    justify-content: space-between;
+    /* justify-content: center; */
+    align-items: center;
+    width: 80%;
+    height: 10px;
+    margin-top: 30px;
+    font-size: 10px;
+}
+.fas{
+    color: #585b5e;
+    font-size: 30px;
+    cursor: pointer;
+}
+.fas:hover{
+    filter:brightness(70%);
+}
+
+.fa-play{
+    font-size: 40px;
+}

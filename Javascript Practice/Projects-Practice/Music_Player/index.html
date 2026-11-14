@@ -8,7 +8,14 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+    <div id="searchBar">
+        <input type="text" placeholder="Artist name" id="searchInput">
+        <button id="submitBtn">Search</button>
+    </div>
+    
     <div id="player-container">
+        
         <!-- Song properties -->
         <div id="img-container">
             <img src="./Artist_Pic/Bhaag Milkha Bhaag.jpg" alt="Bhaag Milkha Bhaag">
@@ -18,12 +25,26 @@
             <h3 id="artist">Shankar Ehsan Loy</h3>
         </div>
         <div id="music-audio">
-            <audio src="./Music_Files/Bhaag Milkha Bhaag.mp3" controls></audio>
+            <audio src="./Music_Files/Bhaag Milkha Bhaag.mp3"></audio>
+
+            <!-- Progress -->
+             <div id="progressContainer">
+
+                <div id="progress" class="progress"></div>
+                <div id="durationWrapper">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">4:39</span>
+            </div>
+
+             </div>
+             <div id="controls">
+                <i class="fas fa-backward" id="prevBtn" title="Previous track"></i>
+                <i class="fas fa-play mainButton" id="playBtn" title="Play"></i>
+                <i class="fas fa-forward" id="nextBtn" title="Next track"></i>
+             </div>
         </div>
 
-        <div id="buttons">
-            <button id="next_track">Next Track Preview (Using API)</button>
-        </div>
+
             
         
 
